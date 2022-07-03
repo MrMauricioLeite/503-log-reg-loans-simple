@@ -39,6 +39,18 @@ app.layout = html.Div(children=[
                 html.H3("Features"),
                 html.Div('Credit History:'),
                 dcc.Input(id='Credit_History', value=1, type='number', min=0, max=1, step=1),
+                html.Div('Have Graduated College? (1=Yes / 0=No'),
+                dcc.Input(id='graduated', value=1, type='number', min=0, max=1, step=1),
+                html.Div('Property location:'),
+                dcc.Dropdown(
+                   id='property_location',
+                   options=[
+                       {'label': 'Urban', 'value': 'urban'},
+                       {'label': 'Semiurban', 'value': 'semiurban'},
+                       {'label': 'Rural', 'value': 'rural'},
+                   ],
+                   value='Rural'
+                ),
                 html.Div('Loan Amount (in thousands):'),
                 dcc.Input(id='LoanAmount', value=130, type='number', min=10, max=800, step=10),
                 html.Div('Term (in months)'),
@@ -82,11 +94,26 @@ app.layout = html.Div(children=[
      Input(component_id='LoanAmount', component_property='value'),
      Input(component_id='Loan_Amount_Term', component_property='value'),
      Input(component_id='ApplicantIncome', component_property='value'),
-     Input(component_id='Threshold', component_property='value')
+     Input(component_id='Threshold', component_property='value'),
+     Input(component_id='graduated', component_property='value'),
+     Input(component_id='property_location', component_property='value')
+     
     ])
-def prediction_function(Credit_History, LoanAmount, Loan_Amount_Term, ApplicantIncome, Threshold):
+def prediction_function(Credit_History, LoanAmount, Loan_Amount_Term, ApplicantIncome, Threshold, graduated, property_location):
     try:
-        data = [[Credit_History, LoanAmount, Loan_Amount_Term, ApplicantIncome]]
+        if property_location=='urban':
+            property_urban = 1
+            property_semiurban = 0
+        elif property_location=='semiurban':
+            property_urban = 0
+            property_semiurban = 1
+        else:
+            property_urban = 0
+            property_semiurban = 0
+        
+        if graduated = 1
+        
+        data = [[Credit_History, LoanAmount, Loan_Amount_Term, ApplicantIncome,property_urban,property_semiurban]]
         rawprob=100*unpickled_model.predict_proba(data)[0][1]
         func = lambda y: 'Approved' if int(rawprob)>Threshold else 'Denied'
         formatted_y = func(rawprob)
