@@ -120,7 +120,7 @@ def prediction_function(Credit_History, LoanAmount, Loan_Amount_Term, ApplicantI
         else:
             ungrad=1
         
-        data = [[Credit_History, LoanAmount, Loan_Amount_Term, ApplicantIncome,ungrad,property_urban,property_semiurban]]
+        data = [[Credit_History, LoanAmount, Loan_Amount_Term, ApplicantIncome,property_urban,property_semiurban,ungrad]]
         rawprob=100*unpickled_model.predict_proba(data)[0][1]
         func = lambda y: 'Approved' if int(rawprob)>Threshold else 'Denied'
         formatted_y = func(rawprob)
