@@ -115,7 +115,7 @@ def prediction_function(Credit_History, LoanAmount, Loan_Amount_Term, ApplicantI
             property_semiurban = 0
 
         
-        if graduated = 1: 
+        if graduated==1: 
             ungrad=0
         else:
             ungrad=1
