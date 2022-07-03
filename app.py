@@ -101,6 +101,9 @@ app.layout = html.Div(children=[
     ])
 def prediction_function(Credit_History, LoanAmount, Loan_Amount_Term, ApplicantIncome, Threshold, graduated, property_location):
     try:
+        property_urban = 0
+        property_semiurban = 0
+        ungrad=0
         if property_location=='urban':
             property_urban = 1
             property_semiurban = 0
@@ -110,10 +113,14 @@ def prediction_function(Credit_History, LoanAmount, Loan_Amount_Term, ApplicantI
         else:
             property_urban = 0
             property_semiurban = 0
+
         
-        if graduated = 1
+        if graduated = 1: 
+            ungrad=0
+        else:
+            ungrad=1
         
-        data = [[Credit_History, LoanAmount, Loan_Amount_Term, ApplicantIncome,property_urban,property_semiurban]]
+        data = [[Credit_History, LoanAmount, Loan_Amount_Term, ApplicantIncome,ungrad,property_urban,property_semiurban]]
         rawprob=100*unpickled_model.predict_proba(data)[0][1]
         func = lambda y: 'Approved' if int(rawprob)>Threshold else 'Denied'
         formatted_y = func(rawprob)
